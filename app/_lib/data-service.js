@@ -36,7 +36,6 @@ export const getCabins = async function () {
     .from("cabins")
     .select("id, name, maxCapacity, regularPrice, discount, image")
     .order("name");
-  console.log("data", data);
   if (error) {
     console.error(error);
     throw new Error("Cabins could not be loaded");
@@ -217,4 +216,104 @@ export async function deleteBooking(id) {
     throw new Error("Booking could not be deleted");
   }
   return data;
+}
+
+/////////////
+// REVIEWS
+
+export async function getReviewsByCabinId(cabinId) {
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("id, rating, comment, created_at, guests(fullName)")
+    .eq("cabinId", cabinId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data;
+}
+
+export async function getAverageRating(cabinId) {
+  const reviews = await getReviewsByCabinId(cabinId);
+  if (!reviews || reviews.length === 0) return { average: 0, count: 0 };
+
+  const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+  return {
+    average: Math.round((total / reviews.length) * 10) / 10,
+    count: reviews.length,
+  };
+}
+
+export async function createReviewEntry(reviewData) {
+  const { data, error } = await supabase
+    .from("reviews")
+    .insert([reviewData])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Review could not be created");
+  }
+  return data;
+}
+
+/////////////
+// FAVORITES
+
+export async function getFavorites(guestId) {
+  const { data, error } = await supabase
+    .from("favorites")
+    .select("cabinId, cabins(id, name, maxCapacity, regularPrice, discount, image)")
+    .eq("guestId", guestId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data?.map((f) => f.cabins) ?? [];
+}
+
+export async function isFavorite(guestId, cabinId) {
+  const { data, error } = await supabase
+    .from("favorites")
+    .select("id")
+    .eq("guestId", guestId)
+    .eq("cabinId", cabinId)
+    .single();
+
+  if (error) return false;
+  return !!data;
+}
+
+export async function toggleFavoriteEntry(guestId, cabinId) {
+  // Check if already favorited
+  const { data: existing } = await supabase
+    .from("favorites")
+    .select("id")
+    .eq("guestId", guestId)
+    .eq("cabinId", cabinId)
+    .single();
+
+  if (existing) {
+    // Remove
+    const { error } = await supabase
+      .from("favorites")
+      .delete()
+      .eq("id", existing.id);
+    if (error) throw new Error("Could not remove favorite");
+    return { action: "removed" };
+  } else {
+    // Add
+    const { error } = await supabase
+      .from("favorites")
+      .insert([{ guestId, cabinId }]);
+    if (error) throw new Error("Could not add favorite");
+    return { action: "added" };
+  }
 }

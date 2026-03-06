@@ -1,5 +1,5 @@
 import ReservationCard from "@/app/_components/ReservationCard";
-import ResservationList from "@/app/_components/ResservationList";
+import ReservationList from "@/app/_components/ReservationList";
 import { auth } from "@/app/_lib/auth";
 import { getBookings } from "@/app/_lib/data-service";
 
@@ -8,7 +8,6 @@ export const metadata = {
 };
 
 export default async function Page() {
-  // CHANGE
   const session = await auth();
   const bookings = await getBookings(session.user.guestId);
 
@@ -26,8 +25,9 @@ export default async function Page() {
           </a>
         </p>
       ) : (
-        <ResservationList bookings={bookings} />
+        <ReservationList bookings={bookings} />
       )}
     </div>
   );
 }
+

@@ -4,8 +4,8 @@ import { auth } from "../_lib/auth";
 export default async function Navigation() {
   const session = await auth();
   return (
-    <nav className="z-10 text-xl">
-      <ul className="flex gap-16 items-center">
+    <nav className="z-10 text-base md:text-xl">
+      <ul className="flex gap-4 md:gap-16 items-center">
         <li>
           <Link href="/" className="hover:text-accent-400 transition-colors">
             Home

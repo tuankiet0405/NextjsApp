@@ -10,16 +10,15 @@ async function Reservations({ cabin }) {
     getBookedDatesByCabinId(cabin.id),
   ]);
   const session = await auth();
-  console.log(bookedDates);
   return (
-    <div className="grid grid-cols-[1fr_30rem] border border-primary-400 min-h-[400px]">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_30rem] border border-primary-800 min-h-[400px]">
       <DateSelector
         settings={settings}
         cabin={cabin}
         bookedDates={bookedDates}
       />
       {session?.user ? (
-        <ReservationForm cabin={cabin} user={session.user} />
+        <ReservationForm cabin={cabin} user={session.user} settings={settings} />
       ) : (
         <LoginMessage />
       )}

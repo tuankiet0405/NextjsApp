@@ -1,7 +1,8 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import FavoriteButton from "./FavoriteButton";
 
-function CabinCard({ cabin }) {
+function CabinCard({ cabin, isAuthenticated = false, isFavorited = false }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
   return (
     <div className="flex  border-primary-800 border">
@@ -9,9 +10,17 @@ function CabinCard({ cabin }) {
         <Image
           src={image}
           fill
-          alt={`Cabin ${name}`}
+          alt={`Cabin ${name} `}
           className="object-cover flex-1 border-r border-primary-800"
         />
+        {/* Favorite button overlay */}
+        <div className="absolute top-2 right-2 z-10">
+          <FavoriteButton
+            cabinId={id}
+            isFavorited={isFavorited}
+            isAuthenticated={isAuthenticated}
+          />
+        </div>
       </div>
       <div className="flex-grow">
         <div className="pt-5 pb-4 px-7 bg-primary-950">
@@ -48,7 +57,7 @@ function CabinCard({ cabin }) {
             href={`/cabins/${id}`}
             className="border-l border-primary-800 py-4 px-6 inline-block hover:bg-accent-600 transition-all hover:text-primary-900"
           >
-            Details & reservation &rarr;
+            Details &amp; reservation &rarr;
           </a>
         </div>
       </div>
