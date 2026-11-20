@@ -36,6 +36,10 @@ Guests browse cabins, check availability, book stays, manage their reservations,
 | **Database as code** | `supabase/schema.sql` (constraints, RLS enabled) + `supabase/seed.sql` (demo data) |
 | **Tests** | Jest unit tests import the real business logic (pricing, booking rules, validation, rate limit, cabin filters) |
 
+## Documentation
+
+Full system specification (requirements, architecture, data model, API, security, deployment, testing): [`docs/README.md`](docs/README.md).
+
 ## Tech stack
 
 Next.js 14 · React 18 · TypeScript · Tailwind CSS · Supabase (PostgreSQL) · Auth.js v5 · zod · date-fns · react-day-picker · Jest · Testing Library
