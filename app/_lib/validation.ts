@@ -52,7 +52,7 @@ export const signUpSchema = z.object({
     .min(8, "Password must be at least 8 characters")
     .max(72, "Password is too long"),
   policyAccepted: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the privacy policy and terms" }),
+    error: "You must accept the privacy policy and terms",
   }),
 });
 
