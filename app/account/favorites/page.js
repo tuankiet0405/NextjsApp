@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CabinCard from "@/app/_components/CabinCard";
 import { auth } from "@/app/_lib/auth";
 import { getFavorites } from "@/app/_lib/data-service";
@@ -19,12 +20,12 @@ export default async function Page() {
             {favorites.length === 0 ? (
                 <p className="text-primary-300 text-lg">
                     You haven&apos;t added any cabins to your favorites yet.{" "}
-                    <a
+                    <Link
                         href="/cabins"
                         className="text-accent-400 underline hover:text-accent-300"
                     >
                         Browse cabins
-                    </a>{" "}
+                    </Link>{" "}
                     to find your perfect getaway!
                 </p>
             ) : (

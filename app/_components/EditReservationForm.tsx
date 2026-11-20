@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { updateReservation } from "../_lib/action";
 import type { Booking } from "../_lib/types";
 import FormError from "./FormError";
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function EditReservationForm({ booking, maxCapacity }: Props) {
-  const [state, formAction] = useFormState(updateReservation, undefined);
+  const [state, formAction] = useActionState(updateReservation, undefined);
 
   return (
     <form action={formAction} className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">

@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, type ReactNode } from "react";
 import { updateProfile } from "../_lib/action";
 import type { Guest } from "../_lib/types";
 import FormError from "./FormError";
@@ -18,7 +17,7 @@ const inputClass =
 
 function UpdateProfileForm({ guest, children }: Props) {
   const { email, fullName, nationalID, countryFlag } = guest;
-  const [state, formAction] = useFormState(updateProfile, undefined);
+  const [state, formAction] = useActionState(updateProfile, undefined);
 
   return (
     <form action={formAction} className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">

@@ -16,11 +16,12 @@ import { auth } from "@/app/_lib/auth";
 import { Suspense } from "react";
 
 interface Props {
-  params: { cabinId: string };
+  params: Promise<{ cabinId: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { name } = await getCabin(params.cabinId);
+  const { cabinId } = await params;
+  const { name } = await getCabin(cabinId);
   return { title: `Cabin ${name}` };
 }
 
@@ -33,11 +34,12 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: Props) {
+  const { cabinId } = await params;
   // Fetch everything in parallel
   const [cabin, reviews, ratingData, session] = await Promise.all([
-    getCabin(params.cabinId),
-    getReviewsByCabinId(params.cabinId),
-    getAverageRating(params.cabinId),
+    getCabin(cabinId),
+    getReviewsByCabinId(cabinId),
+    getAverageRating(cabinId),
     auth().catch(() => null),
   ]);
 

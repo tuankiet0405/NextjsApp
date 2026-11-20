@@ -1,8 +1,9 @@
 import supabase from "@/app/_lib/supabase";
 import { getBookedDatesByCabinId } from "@/app/_lib/data-service";
 
-export async function GET(_req: Request, { params }: { params: { cabinId: string } }) {
-  const id = Number(params.cabinId);
+export async function GET(_req: Request, { params }: { params: Promise<{ cabinId: string }> }) {
+  const { cabinId } = await params;
+  const id = Number(cabinId);
   if (!Number.isInteger(id) || id < 1)
     return Response.json({ message: "Invalid cabin id" }, { status: 400 });
 

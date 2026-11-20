@@ -5,9 +5,9 @@ import { getBookingForGuest, getCabin } from "@/app/_lib/data-service";
 
 export const metadata = { title: "Edit reservation" };
 
-export default async function Page({ params }: { params: { bookingId: string } }) {
+export default async function Page({ params }: { params: Promise<{ bookingId: string }> }) {
   const user = await requireGuest();
-  const bookingId = Number(params.bookingId);
+  const bookingId = Number((await params).bookingId);
   if (!Number.isInteger(bookingId)) notFound();
 
   const booking = await getBookingForGuest(bookingId, user.guestId);

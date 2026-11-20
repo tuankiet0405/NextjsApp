@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useState, useActionState } from "react";
 import { differenceInCalendarDays, format } from "date-fns";
 import type { Session } from "next-auth";
 import { useReservation } from "./ReservationContext";
@@ -43,7 +42,7 @@ function ReservationForm({ cabin, user, settings }: Props) {
     startDate: startDate && format(startDate, "yyyy-MM-dd"),
     endDate: endDate && format(endDate, "yyyy-MM-dd"),
   });
-  const [state, formAction] = useFormState(action, undefined);
+  const [state, formAction] = useActionState(action, undefined);
 
   return (
     <div className="scale-[1.01]">

@@ -11,9 +11,10 @@ import ReservationReminder from "../_components/ReservationReminder";
 export const revalidate = 3600;
 
 export default async function Page({ searchParams }) {
-  const filter = searchParams.capacity ?? "all";
-  const search = searchParams.search ?? "";
-  const sort = searchParams.sort ?? "name";
+  const resolved = await searchParams;
+  const filter = resolved.capacity ?? "all";
+  const search = resolved.search ?? "";
+  const sort = resolved.sort ?? "name";
 
   return (
     <div>

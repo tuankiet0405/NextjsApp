@@ -18,7 +18,6 @@ function NotificationBell() {
         //   .subscribe();
 
         // For now, just show as empty
-        setNotifications([]);
     }, []);
 
     function handleToggle() {

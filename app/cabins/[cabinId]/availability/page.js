@@ -3,21 +3,23 @@ import { getCabin, getBookedDatesByCabinId } from "@/app/_lib/data-service";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
-    const cabin = await getCabin(params.cabinId);
+    const { cabinId } = await params;
+    const cabin = await getCabin(cabinId);
     return { title: `Cabin ${cabin.name} — Availability` };
 }
 
 export default async function Page({ params }) {
+    const { cabinId } = await params;
     const [cabin, bookedDates] = await Promise.all([
-        getCabin(params.cabinId),
-        getBookedDatesByCabinId(params.cabinId),
+        getCabin(cabinId),
+        getBookedDatesByCabinId(cabinId),
     ]);
 
     return (
         <div className="max-w-2xl mx-auto mt-8">
             <div className="mb-8">
                 <Link
-                    href={`/cabins/${params.cabinId}`}
+                    href={`/cabins/${cabinId}`}
                     className="text-accent-400 hover:text-accent-300 text-sm"
                 >
                     &larr; Back to Cabin {cabin.name}
