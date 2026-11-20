@@ -1,5 +1,8 @@
 # The Wild Oasis — Cabin Booking App
 
+[![CI](https://github.com/tuankiet0405/NextjsApp/actions/workflows/ci.yml/badge.svg)](https://github.com/tuankiet0405/NextjsApp/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/tuankiet0405/NextjsApp/actions/workflows/codeql.yml/badge.svg)](https://github.com/tuankiet0405/NextjsApp/actions/workflows/codeql.yml)
+
 Full-stack cabin booking website built with **Next.js 14 (App Router)**, **TypeScript**, **Supabase (PostgreSQL)** and **Auth.js**.
 Guests browse cabins, check availability, book stays, manage their reservations, leave reviews and save favorites. Admins get a dashboard of cabins, bookings and guests.
 
