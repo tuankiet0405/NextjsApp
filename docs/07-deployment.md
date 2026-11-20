@@ -18,7 +18,7 @@ Defined in [`.env.example`](../.env.example). Copy it to `.env.local` for local 
 
 ## 7.2 Prerequisites
 
-- Node.js compatible with Next.js 14 and npm.
+- Node.js 20.9 or newer and npm.
 - A Supabase project (free tier is enough).
 - Optional: Google and GitHub OAuth apps, a Resend account.
 

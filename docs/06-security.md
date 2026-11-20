@@ -33,7 +33,7 @@ plus the default Auth.js `name`, `email` and `image`. The role is read from the 
 
 | Control | Where | Behaviour |
 |---|---|---|
-| Route protection | [`middleware.ts`](../middleware.ts) matcher `/account/:path*`, `/admin/:path*` runs the `authorized` callback | No session: redirect to `/login`. `/admin/*` with role other than `admin`: redirect to `/account` |
+| Route protection | [`proxy.ts`](../proxy.ts) matcher `/account/:path*`, `/admin/:path*` runs the `authorized` callback | No session: redirect to `/login`. `/admin/*` with role other than `admin`: redirect to `/account` |
 | Admin layout check | [`app/admin/layout.tsx`](../app/admin/layout.tsx) | Defense in depth: no session redirects to `/login`; role not `admin` redirects to `/account` |
 | Action authentication | `requireGuest()` at the start of every protected server action | Throws `You must be logged in!` |
 | Admin helper | `requireAdmin()` | Throws `Admins only`. Defined; no current server action uses it because admin pages are read-only |

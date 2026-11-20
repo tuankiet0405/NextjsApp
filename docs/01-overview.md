@@ -44,7 +44,7 @@ The project started from a course project and was extended with server-side vali
 
 | Concern | Technology |
 |---|---|
-| Framework | Next.js 14.2 (App Router), React 18 |
+| Framework | Next.js 16.2 (App Router), React 19 |
 | Language | TypeScript 5 (`strict`) for `app/_lib`, server actions, API route and main components; some UI components remain JavaScript |
 | Styling | Tailwind CSS 3 |
 | Authentication | Auth.js v5 (`next-auth` 5 beta): Google, GitHub, Credentials |

@@ -10,7 +10,7 @@
 | Business rules | Pure functions with no I/O: pricing, booking validation, cabin filtering, rate limiter. Unit tested. | [`booking.ts`](../app/_lib/booking.ts), [`cabins.ts`](../app/_lib/cabins.ts), [`rate-limit.ts`](../app/_lib/rate-limit.ts), [`validation.ts`](../app/_lib/validation.ts) |
 | Data layer | All Supabase queries; maps database errors to user-facing messages. | [`data-service.ts`](../app/_lib/data-service.ts), [`supabase.ts`](../app/_lib/supabase.ts) |
 | Auth | Auth.js configuration, session callbacks, `requireGuest` / `requireAdmin` helpers. | [`auth.ts`](../app/_lib/auth.ts) |
-| Middleware | Runs Auth.js `authorized` callback for `/account/*` and `/admin/*`. | [`../middleware.ts`](../middleware.ts) |
+| Middleware | Runs Auth.js `authorized` callback for `/account/*` and `/admin/*`. | [`../proxy.ts`](../proxy.ts) |
 | Email | Booking confirmation through the Resend HTTP API. | [`email.ts`](../app/_lib/email.ts) |
 | REST API | `GET /api/cabins/:id`; `/api/auth/*` handlers of Auth.js. | [`../app/api`](../app/api) |
 | Database | PostgreSQL on Supabase. Schema, constraints and demo data in SQL files. | [`../supabase`](../supabase) |
@@ -27,7 +27,7 @@ flowchart LR
     CC[Client components]
   end
 
-  subgraph Vercel[Vercel - Next.js 14 app]
+  subgraph Vercel[Vercel - Next.js 16 app]
     MW[Middleware - Auth.js authorized]
     PAGES[Pages - Server Components]
     ACT[Server actions]
@@ -158,7 +158,7 @@ On each request that reads the session, the `session` callback loads the guest b
 | `app/_lib/` | `action.ts`, `auth.ts`, `booking.ts`, `cabins.ts`, `data-service.ts`, `email.ts`, `rate-limit.ts`, `supabase.ts`, `types.ts`, `validation.ts`, `countries.json` |
 | `app/_styles/` | Global CSS (Tailwind) |
 | `app/robots.js`, `app/sitemap.js` | `robots.txt` (disallows `/account` and `/api`) and sitemap (home, about, cabins, each cabin) |
-| `middleware.ts` | Route protection, matcher `/account/:path*`, `/admin/:path*` |
+| `proxy.ts` | Route protection, matcher `/account/:path*`, `/admin/:path*` |
 | `next.config.mjs` | Security headers, remote image hosts, `poweredByHeader: false` |
 | `supabase/` | `schema.sql`, `seed.sql`, `migrations/` |
 | `__tests__/` | Jest unit tests |

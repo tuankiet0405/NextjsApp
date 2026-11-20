@@ -3,7 +3,7 @@
 [![CI](https://github.com/tuankiet0405/NextjsApp/actions/workflows/ci.yml/badge.svg)](https://github.com/tuankiet0405/NextjsApp/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/tuankiet0405/NextjsApp/actions/workflows/codeql.yml/badge.svg)](https://github.com/tuankiet0405/NextjsApp/actions/workflows/codeql.yml)
 
-Full-stack cabin booking website built with **Next.js 14 (App Router)**, **TypeScript**, **Supabase (PostgreSQL)** and **Auth.js**.
+Full-stack cabin booking website built with **Next.js 16 (App Router)**, **TypeScript**, **Supabase (PostgreSQL)** and **Auth.js**.
 Guests browse cabins, check availability, book stays, manage their reservations, leave reviews and save favorites. Admins get a dashboard of cabins, bookings and guests.
 
 > Started from Jonas Schmedtmann's Next.js course project, then extended with the features, security hardening, TypeScript and tests listed under [What I built on top of the course](#what-i-built-on-top-of-the-course).
@@ -45,7 +45,7 @@ Full system specification (requirements, architecture, data model, API, security
 
 ## Tech stack
 
-Next.js 14 · React 18 · TypeScript · Tailwind CSS · Supabase (PostgreSQL) · Auth.js v5 · zod · date-fns · react-day-picker · Jest · Testing Library
+Next.js 16 · React 19 · TypeScript · Tailwind CSS · Supabase (PostgreSQL) · Auth.js v5 · zod · date-fns · react-day-picker · Jest · Testing Library
 
 ## Getting started
 
@@ -86,5 +86,5 @@ app/
   cabins/       cabin list and detail/booking pages
 supabase/       schema.sql + seed.sql
 __tests__/      unit tests
-middleware.ts   route protection
+proxy.ts   route protection
 ```

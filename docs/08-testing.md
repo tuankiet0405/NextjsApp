@@ -7,7 +7,7 @@
 | `npm test` | Runs all Jest tests once |
 | `npm run test:watch` | Jest in watch mode |
 | `npm run typecheck` | `tsc --noEmit` (TypeScript strict) |
-| `npm run lint` | `next lint` (ESLint) |
+| `npm run lint` | `eslint .` (ESLint 9 flat config) |
 
 Configuration: [`jest.config.js`](../jest.config.js) (`next/jest`, `jsdom` environment by default, alias `@/` mapped to the repository root) and [`jest.setup.js`](../jest.setup.js) (Testing Library DOM matchers). Files for pure logic switch to the Node environment with a `@jest-environment node` docblock.
 
