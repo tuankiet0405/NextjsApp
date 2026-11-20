@@ -1,8 +1,20 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Link from "next/link";
+import type { CabinSummary } from "@/app/_lib/types";
 import FavoriteButton from "./FavoriteButton";
 
-function CabinCard({ cabin, isAuthenticated = false, isFavorited = false }) {
+interface CabinCardProps {
+  cabin: CabinSummary;
+  isAuthenticated?: boolean;
+  isFavorited?: boolean;
+}
+
+function CabinCard({
+  cabin,
+  isAuthenticated = false,
+  isFavorited = false,
+}: CabinCardProps) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
   return (
     <div className="flex  border-primary-800 border">
@@ -53,12 +65,12 @@ function CabinCard({ cabin, isAuthenticated = false, isFavorited = false }) {
         </div>
 
         <div className="bg-primary-950 border-t border-t-primary-800 text-right">
-          <a
+          <Link
             href={`/cabins/${id}`}
             className="border-l border-primary-800 py-4 px-6 inline-block hover:bg-accent-600 transition-all hover:text-primary-900"
           >
             Details &amp; reservation &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     </div>

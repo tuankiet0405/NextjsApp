@@ -5,7 +5,17 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import { toggleFavorite } from "../_lib/action";
 
-function FavoriteButton({ cabinId, isFavorited = false, isAuthenticated }) {
+interface FavoriteButtonProps {
+    cabinId: number;
+    isFavorited: boolean;
+    isAuthenticated: boolean;
+}
+
+function FavoriteButton({
+    cabinId,
+    isFavorited,
+    isAuthenticated,
+}: FavoriteButtonProps) {
     const [favorited, setFavorited] = useState(isFavorited);
     const [isPending, startTransition] = useTransition();
 

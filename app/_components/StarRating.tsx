@@ -2,18 +2,30 @@
 
 import { useState } from "react";
 
-function StarRating({ maxRating = 5, defaultRating = 0, onSetRating, size = "md" }) {
+interface StarRatingProps {
+    maxRating?: number;
+    defaultRating?: number;
+    onSetRating?: (rating: number) => void;
+    size?: "sm" | "md" | "lg";
+}
+
+function StarRating({
+    maxRating = 5,
+    defaultRating = 0,
+    onSetRating,
+    size = "md",
+}: StarRatingProps) {
     const [rating, setRating] = useState(defaultRating);
     const [hoverRating, setHoverRating] = useState(0);
 
-    const sizes = {
+    const sizes: Record<string, string> = {
         sm: "h-4 w-4",
         md: "h-6 w-6",
         lg: "h-8 w-8",
     };
     const starSize = sizes[size] || sizes.md;
 
-    function handleClick(value) {
+    function handleClick(value: number) {
         setRating(value);
         onSetRating?.(value);
     }

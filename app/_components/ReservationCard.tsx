@@ -2,13 +2,19 @@ import Image from "next/image";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 import DeleteReservation from "./DeleteReservation";
+import type { BookingWithCabin } from "@/app/_lib/types";
 
-export const formatDistanceFromNow = (dateStr) =>
+export const formatDistanceFromNow = (dateStr: string): string =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking, onDelete }) {
+interface Props {
+  booking: BookingWithCabin;
+  onDelete: (bookingId: number) => Promise<void>;
+}
+
+function ReservationCard({ booking, onDelete }: Props) {
   const {
     id,
     guestId,
@@ -70,7 +76,7 @@ function ReservationCard({ booking, onDelete }) {
       </div>
 
       <div className="flex flex-col border-l border-primary-800 w-[100px]">
-        {!isPast(startDate) && (
+        {!isPast(new Date(startDate)) && (
           <>
             <a
               href={`/account/reservations/edit/${id}`}

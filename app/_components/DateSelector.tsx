@@ -1,30 +1,39 @@
 "use client";
 
 import {
-  differenceInDays,
+  differenceInCalendarDays,
   isPast,
   isSameDay,
   isWithinInterval,
 } from "date-fns";
 import { DayPicker } from "react-day-picker";
+import type { DateRange } from "react-day-picker";
+import type { Cabin, Settings } from "@/app/_lib/types";
 import { useReservation } from "./ReservationContext";
 import "react-day-picker/dist/style.css";
 
-function isAlreadyBooked(range, datesArr) {
+interface DateSelectorProps {
+  settings: Settings;
+  cabin: Pick<Cabin, "regularPrice" | "discount">;
+  bookedDates: Date[];
+}
+
+function isAlreadyBooked(range: DateRange, datesArr: Date[]): boolean {
+  const { from, to } = range;
   return (
-    range.from &&
-    range.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
-    )
+    !!from &&
+    !!to &&
+    datesArr.some((date) => isWithinInterval(date, { start: from, end: to }))
   );
 }
 
-function DateSelector({ settings, cabin, bookedDates }) {
+function DateSelector({ settings, cabin, bookedDates }: DateSelectorProps) {
   const { range, setRange, resetRange } = useReservation();
-  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
-  // CHANGE
-  const numNights = differenceInDays(range.to, range.from);
+  const displayRange = isAlreadyBooked(range, bookedDates)
+    ? undefined
+    : range;
+  const numNights =
+    range.from && range.to ? differenceInCalendarDays(range.to, range.from) : 0;
   const { regularPrice, discount } = cabin;
   const cabinPrice = numNights * (regularPrice - discount);
 
@@ -79,6 +88,7 @@ function DateSelector({ settings, cabin, bookedDates }) {
 
         {range.from || range.to ? (
           <button
+            type="button"
             className="border border-primary-800 py-2 px-4 text-sm font-semibold"
             onClick={resetRange}
           >

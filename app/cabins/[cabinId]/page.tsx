@@ -3,17 +3,23 @@ import Reservations from "@/app/_components/Reservations";
 import ReviewList from "@/app/_components/ReviewList";
 import FavoriteButton from "@/app/_components/FavoriteButton";
 import Spinner from "@/app/_components/Spinner";
+import ReviewForm from "@/app/_components/ReviewForm";
 import {
   getCabin,
   getCabins,
   getReviewsByCabinId,
   getAverageRating,
   isFavorite,
+  getReviewableBooking,
 } from "@/app/_lib/data-service";
 import { auth } from "@/app/_lib/auth";
 import { Suspense } from "react";
 
-export async function generateMetadata({ params }) {
+interface Props {
+  params: { cabinId: string };
+}
+
+export async function generateMetadata({ params }: Props) {
   const { name } = await getCabin(params.cabinId);
   return { title: `Cabin ${name}` };
 }
@@ -26,7 +32,7 @@ export async function generateStaticParams() {
   return ids;
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params }: Props) {
   // Fetch everything in parallel
   const [cabin, reviews, ratingData, session] = await Promise.all([
     getCabin(params.cabinId),
@@ -37,9 +43,13 @@ export default async function Page({ params }) {
 
   let isAuthenticated = false;
   let isFav = false;
+  let reviewable: { id: number } | null = null;
   if (session?.user?.guestId) {
     isAuthenticated = true;
-    isFav = await isFavorite(session.user.guestId, Number(params.cabinId));
+    [isFav, reviewable] = await Promise.all([
+      isFavorite(session.user.guestId, cabin.id),
+      getReviewableBooking(session.user.guestId, cabin.id),
+    ]);
   }
 
   return (
@@ -80,6 +90,11 @@ export default async function Page({ params }) {
             </span>
           )}
         </h3>
+        {reviewable && (
+          <div className="mb-8">
+            <ReviewForm cabinId={cabin.id} bookingId={reviewable.id} />
+          </div>
+        )}
         <ReviewList reviews={reviews} />
       </div>
     </div>
