@@ -45,7 +45,7 @@ function SignInForm() {
                     id="signin-email"
                     required
                     placeholder="you@example.com"
-                    className="px-4 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+                    className="px-4 py-3 bg-primary-50 text-primary-900 placeholder:text-primary-400 border border-primary-200 focus:outline-none focus:ring-2 focus:ring-accent-500 w-full shadow-sm rounded-sm"
                 />
             </div>
 
@@ -59,7 +59,7 @@ function SignInForm() {
                     id="signin-password"
                     required
                     placeholder="Enter your password"
-                    className="px-4 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+                    className="px-4 py-3 bg-primary-50 text-primary-900 placeholder:text-primary-400 border border-primary-200 focus:outline-none focus:ring-2 focus:ring-accent-500 w-full shadow-sm rounded-sm"
                 />
             </div>
 
